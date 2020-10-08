@@ -1,0 +1,201 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+ 
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/main.css">
+  <title>Confirm Details | Pratical Task 4 UX</title> 
+</head> 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">UX 2020</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav">
+    <li class="nav-item active">
+        <a class="nav-link" href="/">Home </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/confirm">Apply Here</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/"></a>
+    </li>
+</ul>
+</div>
+
+</nav>
+<body > 
+  <header>
+    
+  </header> 
+  <main> 
+    
+<script>
+    $(document).ready(function(){
+        $("#nextOfKinToggle").click(function(){
+            $("#nextOfKinInfo").slideToggle("slow");
+        });
+    });
+
+    $.ajax({
+        
+        url: 'https://randomuser.me/api/?results=2',
+        dataType: 'json',
+        success: function(data) {
+            console.log(data);
+            
+            var DoB2 = data.results[0].dob.date
+            var DoB3 = DoB2.replaceAll("T", " ");
+            var DoB = new Date(data.results[0].dob.date)
+            console.log(DoB);
+            console.log(DoB3.replaceAll("Z", " "));
+            
+            
+            $("#firstName").val(data.results[0].name.first );
+            $("#lastName").val(data.results[0].name.last );
+            $("#email").val(data.results[0].email );
+            $("#address").val((data.results[0].location.street.number) + (" ") + (data.results[0].location.street.name) + (", ") + (data.results[0].location.state) + (", ") +(data.results[0].location.country) );
+            $("#birthDate").val(DoB );
+            $("#phone").val(data.results[0].phone );
+            $("#cellPhone").val(data.results[0].cell );
+            $("#nationality").val(data.results[0].nat );
+
+            
+            $("#nokfirstName").val(data.results[1].name.first );
+            $("#noklastName").val(data.results[1].name.last );
+            $("#nokemail").val(data.results[1].email );
+            $("#nokaddress").val((data.results[1].location.street.number) + (" ") + (data.results[1].location.street.name) + (", ") + (data.results[1].location.state) + (", ") + (data.results[1].location.country) );
+            $("#nokbirthDate").val(DoB );
+            $("#nokphone").val(data.results[1].phone );
+            $("#nokcellPhone").val(data.results[1].cell );
+            $("#noknationality").val(data.results[1].nat );
+        }
+    });
+
+   
+
+    function toJson() {
+            JSON.stringify(Object.fromEntries(formData));
+            document.getElementById("content").innerHTML = "Thank you for confirming your information";
+            console.log(JSON.stringify(formData));
+            document.getElementById("confirmation").element.style.display = 'none'; 
+        }
+
+    function isChecked() {
+            document.getElementById("submit").disabled = false;
+
+        }
+    
+
+    
+</script>
+<div class="content text-center" id = "content">
+    <div id="confirm" class="text-center">
+        <h1 class="text-center">Please confirm your data:</h1>
+        <p>Please double check the information you entered previous, then check the box to confirm it is accurate to continue.</p>
+        <hr>
+        <h3 id="formTitle" class="text-center">Personal Info:</h3>
+        <hr>
+        <div class ="form">
+            <form id="formData" >
+                
+                <label for="firstName">First name:</label>
+                <input class='text-center' type='text' id="firstName" name="firstName" placeholder="" value=""></input>
+            
+                <label for="middleName">Middle name's:</label>
+                <input class='text-center' type='text' id="middleName" name="middleName" placeholder="" value=""></input>
+                    
+                <label for="lastName">Last name:</label>
+                <input class='text-center' type='text' id="lastName" name="lastName" placeholder="" value=""></input>
+
+                <label for="email">Email address:</label>
+                <input class='text-center' type='email' id="email" name="email" placeholder="" value=""></input>
+                
+                <label for="address">Address:</label>
+                <input class='text-center' type='address' id="address" name="address" placeholder="" value=""></input>
+
+                <label for="birthDate">Birth date:</label>
+                <input class='text-center' type='date' id="birthDate" name="birthDate" date-format="yyyy-MM-dd" placeholder="" value=""></input>
+
+                <label for="phone">Phone number:</label>
+                <input class='text-center' type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="" value=""></input>
+                
+                <label for="cellPhone">Cell-Phone number:</label>
+                <input class='text-center' type="tel" id="cellPhone" name="cellPhone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="" value=""></input>
+                
+                <label for="nationality">Nationality:</label>
+                <input class='text-center' type='text' id="nationality" name="nationality" placeholder="" value=""></input>
+
+               
+            </form>   
+        </div>
+    </div>
+    <hr>
+
+    <div id ="nextOfKin">
+        <h3 class="text-center">Next of kin:
+            <button type="button" class="btn  dropdown-toggle dropdown-toggle-split" id="nextOfKinToggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></button>
+        </h3>
+    </div>
+    <hr>
+
+    <div id="nextOfKinInfo">
+        <h4 class ="text-center">Next of Kin</h4>
+        <form id="nokForm" >
+                
+            <label for="nokfirstName">First name:</label>
+            <input class='text-center' type='text' id="nokfirstName" name="nokfirstName" placeholder="" value=""></input>
+        
+            <label for="nokmiddleName">Middle name's:</label>
+            <input class='text-center' type='text' id="nokmiddleName" name="nokmiddleName" placeholder="" value=""></input>
+                
+            <label for="lastName">Last name:</label>
+            <input class='text-center' type='text' id="noklastName" name="noklastName" placeholder="" value=""></input>
+
+            <label for="nokemail">Email address:</label>
+            <input class='text-center' type='email' id="nokemail" name="nokemail" placeholder="" value=""></input>
+            
+            <label for="nokaddress">Address:</label>
+            <input class='text-center' type='address' id="nokaddress" name="nokaddress" placeholder="" value=""></input>
+
+            <label for="nokbirthDate">Birth date:</label>
+            <input class='text-center' type='date' id="nokbirthDate" name="nokbirthDate" placeholder="" value=""></input>
+
+            <label for="nokphone">Phone number:</label>
+            <input class='text-center' type="tel" id="nokphone" name="nokphone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="" value=""></input>
+            
+            <label for="nokcellPhone">Cell-Phone number:</label>
+            <input class='text-center' type="tel" id="nokcellPhone" name="nokcellPhone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="" value=""></input>
+            
+            <label for="noknationality">Nationality:</label>
+            <input class='text-center' type='text' id="noknationality" name="noknationality" placeholder="" value=""></input>
+        </form>
+        <hr>
+    </div>
+
+    <div id = "confirmation" class = "checked text-center">
+        <label for="checkbox" class = "text-center">Please check the box to confirm the information entered is correct and accurate:</label>
+        <input type="checkbox" id="checkbox"  onchange="isChecked()"/>
+    </div>
+    <div class = "buttons">
+        <button id="submit" type="button" class="btn btn-success" onclick="toJson()" disabled >Submit</button>
+        <button type="button" class="btn btn-danger"><a href="/"> Cancel </a></button>
+    </div>
+</div>
+  </main> 
+  <footer class = "footer">
+    <legend>User Engineering 2020 | Anthony Lock</legend>
+ 
+
+  </footer>
+  </body> 
+ 
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>
